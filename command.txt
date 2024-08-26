@@ -1,0 +1,1 @@
+python -u inference.py --version v2 --task sr --upscale 2 --cfg_scale 2.0 --input inputs/demo/bsr --output results/demo_bsr --device cuda
