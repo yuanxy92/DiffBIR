@@ -4,6 +4,7 @@ from PIL import Image
 import torch
 import numpy as np
 import cv2
+import shutil
 
 from accelerate.utils import set_seed
 from utils.inference import (
@@ -163,11 +164,13 @@ def main(input_dir, output_dir, blksize = 200, overlap = 100, scale = 2):
                 args.input = './results/temp_input'
                 args.output = './results/temp_output'
                 image_ds_path = './results/temp_img_ds.png'
-                image_path = './results/temp_img_ds.png'
+                image_path = './results/temp_img.png'
                 cv2.imwrite(image_ds_path, img_ds)
                 cv2.imwrite(image_path, img)
 
                 # split images
+                shutil.rmtree(args.input, ignore_errors=True)
+                shutil.rmtree(args.output, ignore_errors=True)
                 split_image_into_blocks(image_ds_path, args.input, block_size=(blksize, blksize), overlap=overlap)
                 print(f'Split image of {image_filename} done!')
 
